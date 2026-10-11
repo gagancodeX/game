@@ -133,6 +133,9 @@ ring.parent_type='BONE'; ring.parent_bone="forearm.L"
 def action(name, frames, pose_fn, cyclic=False):
  bpy.context.view_layer.objects.active=arm
  bpy.ops.object.mode_set(mode="POSE")
+ act=bpy.data.actions.new(name)
+ arm.animation_data_create()
+ arm.animation_data.action=act
  for pb in arm.pose.bones: pb.rotation_mode='XYZ'
  for frame in frames:
   bpy.context.scene.frame_set(frame)
@@ -141,7 +144,6 @@ def action(name, frames, pose_fn, cyclic=False):
    if pb.name not in ("root",): 
     pb.keyframe_insert(data_path="rotation_euler", frame=frame, group=pb.name)
  bpy.ops.object.mode_set(mode="OBJECT")
- act=arm.animation_data.action
  act.name=name
  act.use_cyclic=cyclic
  return act
