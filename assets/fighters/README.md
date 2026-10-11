@@ -1,23 +1,24 @@
 # Ryuo character asset
 
-Place the **original Ryuo rigged GLB** at:
+The repository includes a Blender generator at `tools/create_ryuo.py`. It creates an original stylized Ryuo mesh, humanoid armature, materials, and starter animation actions, then exports `assets/fighters/ryuo.glb`.
 
-`assets/fighters/ryuo.glb`
+## Generate the GLB
 
-The game loader already looks for this exact relative path when Ryuo is selected. The file must be a binary glTF 2.0 (.glb) with:
-- A skinned humanoid mesh and a working skeleton/skin weights.
-- Embedded textures/materials (no external texture paths).
-- Animation clips in the same GLB. Clip names should include one of these keywords so the current controller can recognize them:
-  - `idle` or `stand`
-  - `walk`, `run`, or `move`
-  - `jump`
-  - `punch`, `attack`, or `hit`
-  - `kick`
-  - `guard` or `block`
-  - `special` or `ultimate`
+1. Install Blender 4.x: https://www.blender.org/download/
+2. From the repository root, run:
 
-## Important
+   ```bash
+   blender --background --python tools/create_ryuo.py
+   ```
 
-The GLB is intentionally **not committed yet**. A model must be supplied/exported and checked before it can be called the original Ryuo character. The loader keeps the procedural fighter visible if the file is missing or fails to load.
+3. Confirm that `assets/fighters/ryuo.glb` was created.
+4. Open the GLB in Blender or a GLTF viewer and inspect the skeleton, materials, and each animation.
+5. Commit the generated binary asset. The static site can then serve it from `/assets/fighters/ryuo.glb`.
 
-Before publishing an asset, confirm its creator/license permits use and redistribution in this repository. Do not rename an unrelated sample model to Ryuo and describe it as original artwork.
+## Verification status
+
+The generator script is committed, but the GLB binary is **not generated or committed yet** because Blender is not available in the current execution environment. Do not treat the character as integrated until the binary exists, animation names and rigging are verified in a GLTF viewer, and the deployed browser console confirms successful model loading.
+
+The current loader recognizes animation clip names containing these terms: `idle`/`stand`, `walk`/`run`/`move`, `jump`, `punch`/`attack`/`hit`, `kick`, `guard`/`block`, and `special`/`ultimate`.
+
+Inspect and correct the generated rig, skin weights, and animations before calling it production-ready. Only use assets with licenses that permit redistribution.
