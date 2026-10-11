@@ -36,9 +36,8 @@ addEventListener('keydown',e=>{if(['ArrowLeft','a'].includes(e.key))move=-1;if([
 window.addEventListener('error',e=>{console.warn('3D module failed; offline-safe game layer remains active',e.message)});
 })();
 </script>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js"}}</script>
 <script type="module">
-import * as THREE from 'three';
+let THREE;try{THREE=await import("https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js")}catch(primaryCDNError){try{THREE=await import("https://unpkg.com/three@0.164.1/build/three.module.js")}catch(backupCDNError){console.error("Three.js failed to load from both CDNs",primaryCDNError,backupCDNError);const note=document.createElement("div");note.style.cssText="position:fixed;z-index:99;left:12px;right:12px;top:155px;padding:12px;background:#210d18;border:1px solid #ff6688;color:white;font:14px system-ui";note.textContent="3D engine could not load. Check internet access, enable Chrome hardware acceleration, then reload.";document.body.appendChild(note);throw backupCDNError;}}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const fighters=[
 {id:'ryuo',name:'RYUO',country:'India',flag:'🇮🇳',title:"Agni's Fury",color:0xff3d36,glow:0xff7b27,skin:0xc88960,power:'PHOENIX BURST',emoji:'🔥',hair:0x15101a},
